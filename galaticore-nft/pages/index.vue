@@ -87,6 +87,30 @@ const team = [
     imageUrl: "img/analyst.png",
   },
 ];
+
+const cards = reactive([
+  { id: 1, title: "Card 1" },
+  { id: 2, title: "Card 2" },
+  { id: 3, title: "Card 3" },
+  { id: 4, title: "Card 4" },
+  { id: 5, title: "Card 5" },
+]);
+const cardContainer = ref(null);
+let currentPosition = 0;
+const slideRight = () => {
+  currentPosition += 1;
+  if (currentPosition >= cards.length - 1) {
+    const addedCards = [...cards];
+    cards.push(...addedCards);
+  }
+  cardContainer.value.style.transform = `translateX(${
+    -currentPosition * 220
+  }px)`;
+};
+
+const addedCards = [...cards];
+cards.push(...addedCards);
+
 const selectedNav = ref();
 const mobileSubNavOpen = ref(false);
 const open = ref(false);
@@ -517,6 +541,39 @@ const open = ref(false);
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="py-24 sm:py-32 relative">
+      <div class="mx-auto grid max-w-7xl overflow-hidden">
+        <div class="flex flex-col items-center">
+          <div
+            ref="cardContainer"
+            class="relative flex w-full overflow-hidden transition-all ease-out snap-x"
+          >
+            <div
+              v-for="card in cards"
+              :key="card.id"
+              class="w-[350px] h-[500px] mr-10 bg-red-600 transition-all ease-in-out snap-center"
+            >
+              <div class="flex flex-col items-center justify-center h-full">
+                <h2 class="text-lg text-white">{{ card.title }}</h2>
+                <p class="text-sm text-white">{{ card.description }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex justify-center items-center absolute top-0 right-0 h-full w-1/3"
+      >
+        <button
+          class="text-white rounded-full p-7 bg-[#26284079] backdrop-blur-sm hover:bg-[#535783a1] hover:scale-110 transition-all ease-in-out duration-500"
+          @click="slideRight"
+        >
+          <ChevronRightIcon
+            class="h-10 w-10 text-gray-300 group-hover:text-indigo-600"
+          />
+        </button>
       </div>
     </div>
     <div class="py-24 sm:py-32">
