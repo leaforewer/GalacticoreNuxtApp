@@ -355,7 +355,7 @@ const open = ref(false);
         aria-hidden="true"
       >
         <div
-          class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+          class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-sky-500 to-sky-200 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
           style="
             clip-path: polygon(
               74.1% 44.1%,
@@ -395,7 +395,7 @@ const open = ref(false);
             class="text-4xl font-bold sm:!leading-normal tracking-tight text-gray-200 sm:text-6xl"
           >
             Explore the Cosmos with Galacticore<span
-              class="mt-2 block text-xl tracking-widest"
+              class="mt-2 block text-base text-gray-400 italic tracking-widest"
               >Own Your Piece of the Universe!</span
             >
           </h1>
@@ -412,7 +412,7 @@ const open = ref(false);
         aria-hidden="true"
       >
         <div
-          class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+          class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-sky-400 to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
           style="
             clip-path: polygon(
               74.1% 44.1%,
@@ -621,7 +621,7 @@ const open = ref(false);
                 >
                   {{ person.name }}
                 </h3>
-                <p class="text-sm font-semibold leading-6 text-indigo-600">
+                <p class="text-sm italic font-bold leading-6 text-sky-600">
                   {{ person.role }}
                 </p>
               </div>
