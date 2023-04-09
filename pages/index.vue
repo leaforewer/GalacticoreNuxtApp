@@ -13,6 +13,7 @@ import {
 import {
   Bars3Icon,
   ChevronRightIcon,
+  ChevronDownIcon,
   DocumentTextIcon,
   PuzzlePieceIcon,
   XMarkIcon,
@@ -64,6 +65,51 @@ const navigation = reactive([
     ],
   },
 ]);
+
+const faqs = reactive([
+  {
+    id: 1,
+    question: "What is Galacticore NFT?",
+    answer:
+      "Galacticore NFT is a digital art project that will be available on Shardeum blockchain in Q2 of 2023. The project consists of unique digital assets, or NFTs, that represent ownership of a piece of digital content related to space and science fiction.",
+  },
+  {
+    id: 2,
+    question: "What is Shardeum blockchain?",
+    answer:
+      "Shardeum blockchain is a new blockchain technology that is being developed specifically for NFT projects like Galacticore. It is designed to be fast, secure, and scalable, and will support a wide range of NFT use cases.",
+  },
+  {
+    id: 3,
+    question: "How can I buy Galacticore NFTs?",
+    answer:
+      "To buy Galacticore NFTs, you will need to have a Shardeum wallet set up with Shardeum coins (SDM). Once you have a wallet set up, you can browse the Galacticore marketplace or visit the project's website to purchase an NFT.",
+  },
+  {
+    id: 4,
+    question: "What kind of NFTs can I expect to see in Galacticore?",
+    answer:
+      "Galacticore will feature a variety of unique digital assets, including artwork, music, and videos, that are related to space and science fiction. Each NFT will be unique and will have its own value based on its rarity and popularity.",
+  },
+  {
+    id: 5,
+    question: "Can I sell my Galacticore NFTs?",
+    answer:
+      "Yes, you can sell your Galacticore NFTs on the Shardeum marketplace or through the project's website. The value of your NFT will depend on a variety of factors, including the rarity of your NFT, the popularity of the project, and the current market conditions.",
+  },
+]);
+const selectedId = ref(0);
+const isOpened = ref(false);
+
+function openFaq(id: number) {
+  if (selectedId.value !== id && isOpened) {
+    isOpened.value = true;
+    selectedId.value = id;
+    return;
+  }
+  isOpened.value = !isOpened.value;
+  selectedId.value = id;
+}
 
 const team = [
   {
@@ -625,6 +671,47 @@ const open = ref(false);
                   {{ person.role }}
                 </p>
               </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="py-24 sm:py-32">
+      <div class="mx-auto grid max-w-5xl h- px-6 lg:px-8">
+        <h2 class="text-3xl text-gray-300 mx-auto mb-16">
+          Frequently Asked Questions [FAQ]
+        </h2>
+        <ul class="flex flex-col justify-center items-center w-full">
+          <li
+            v-for="(faq, index) in faqs"
+            @click="openFaq(faq.id)"
+            :class="[
+              index === 0 ? 'rounded-t-md' : '',
+              index > faqs.length - 2 ? 'rounded-b-md' : '',
+              isOpened && faq.id === selectedId
+                ? 'bg-sky-400 hover:text-white hover:font-normal'
+                : 'bg-[#121212]',
+            ]"
+            class="py-5 px-3 w-full border border-gray-500 cursor-pointer text-white hover:text-gray-400 hover:font-bold transition-all ease-in-out"
+          >
+            <div class="flex justify-between items-center">
+              <span>{{ faq.question }}</span>
+              <div>
+                <ChevronDownIcon
+                  class="h-6 w-6 transition-all"
+                  :class="isOpened && faq.id === selectedId ? 'rotate-180' : ''"
+                />
+              </div>
+            </div>
+            <div
+              :class="
+                isOpened && faq.id === selectedId
+                  ? 'max-h-[500px]'
+                  : 'max-h-0 p-0'
+              "
+              class="p-5 overflow-hidden font-semibold transition-all duration-500 ease-in-out text-white"
+            >
+              {{ faq.answer }}
             </div>
           </li>
         </ul>
