@@ -66,6 +66,23 @@ const navigation = reactive([
   },
 ]);
 
+const callouts = [
+  {
+    name: "Documentation",
+    description:
+      "Ensure the authenticity, transparency, and security of your NFT with proper documentation on the blockchain ledger - trust that your unique digital asset is genuine and valuable, and easily trade it with confidence in the NFT ecosystem.",
+    icon: DocumentTextIcon,
+    href: "/docs",
+  },
+  {
+    name: "Build a warrior",
+    description:
+      "Experience the thrill of unleashing your imagination and becoming an active participant in the dynamic world of blockchain technology and digital art with Cosmic Warrior NFTs – create your own unique and captivating digital asset today!",
+    icon: PuzzlePieceIcon,
+    href: "/build-a-warrior",
+  },
+];
+
 const faqs = reactive([
   {
     id: 1,
@@ -635,7 +652,7 @@ const open = ref(false);
         </div>
       </div>
     </div>
-    <div class="py-24 sm:py-32">
+    <div class="py-24 sm:py-32 relative">
       <div
         id="team"
         class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3"
@@ -652,7 +669,7 @@ const open = ref(false);
         </div>
         <ul
           role="list"
-          class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2"
+          class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2 lg:pb-20"
         >
           <li v-for="person in team" :key="person.name">
             <div class="flex items-center gap-x-6">
@@ -675,9 +692,77 @@ const open = ref(false);
           </li>
         </ul>
       </div>
+      <div
+        class="absolute -bottom-2 left-0 w-full z-0 overflow-hidden leading-0 rotate-180"
+      >
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M1200 120L0 16.48 0 0 1200 0 1200 120z"
+            class="fill-gray-100"
+          ></path>
+        </svg>
+      </div>
+    </div>
+    <div class="bg-gray-100 relative">
+      <div
+        class="absolute -bottom-2 left-0 w-full z-0 overflow-hidden leading-0 rotate-180"
+      >
+        <svg
+          data-name="Layer 1"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M1200 120L0 16.48 0 0 1200 0 1200 120z"
+            class="fill-[#060714]"
+          ></path>
+        </svg>
+      </div>
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div
+          class="mx-auto max-w-2xl py-16 sm:py-24 lg:pb-56 lg:pt-0 lg:max-w-none lg:py-32"
+        >
+          <h2 class="text-2xl font-bold tracking-wide text-gray-900">
+            Check Out These Too!
+          </h2>
+          <div
+            class="mt-6 space-y-12 lg:grid lg:grid-cols-4 lg:gap-x-6 lg:space-y-0"
+          >
+            <div
+              v-for="callout in callouts"
+              :key="callout.name"
+              class="group relative col-span-2"
+            >
+              <div
+                class="relative h-32 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-2 group-hover:opacity-75 sm:h-32"
+              >
+                <component
+                  :is="callout.icon"
+                  class="h-32 w-full p-16 bg-gray-200 object-cover object-center"
+                />
+              </div>
+              <h3 class="mt-6 text-sm text-gray-500">
+                <a :href="callout.href">
+                  <span class="absolute inset-0" />
+                  {{ callout.name }}
+                </a>
+              </h3>
+              <p class="text-base font-semibold text-gray-900">
+                {{ callout.description }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="py-24 sm:py-32">
-      <div class="mx-auto grid max-w-5xl h- px-6 lg:px-8">
+      <div class="mx-auto grid max-w-5xl px-6 lg:px-8">
         <h2 class="text-3xl text-gray-300 mx-auto mb-16">
           Frequently Asked Questions [FAQ]
         </h2>
@@ -706,10 +791,10 @@ const open = ref(false);
             <div
               :class="
                 isOpened && faq.id === selectedId
-                  ? 'max-h-[500px]'
+                  ? 'max-h-[500px] p-5'
                   : 'max-h-0 p-0'
               "
-              class="p-5 overflow-hidden font-semibold transition-all duration-500 ease-in-out text-white"
+              class=" overflow-hidden font-semibold transition-all duration-500 ease-in-out text-white"
             >
               {{ faq.answer }}
             </div>
