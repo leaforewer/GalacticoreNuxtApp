@@ -7,7 +7,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "prettier": "prettier --write ."
+    "prettier": "prettier --write .",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.6.5",
@@ -21,6 +22,7 @@
     "@headlessui/vue": "^1.7.12",
     "@heroicons/vue": "^2.0.17",
     "@tailwindcss/aspect-ratio": "^0.4.2",
+    "gh-pages": "^5.0.0",
     "vue": "^3.2.47"
   }
 }
