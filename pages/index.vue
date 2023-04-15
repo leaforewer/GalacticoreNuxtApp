@@ -21,12 +21,18 @@ import {
 
 useHead({
   bodyAttrs: {
-    class: "font-sans antialiased",
+    class: "font-sans antialiased relative",
   },
   htmlAttrs: {
-    class: "h-full bg-[#060714] overflow-x-hidden scroll-smooth",
+    class: "h-full bg-[#121212] overflow-x-hidden scroll-smooth",
   },
 });
+
+const isActive = ref(false);
+
+function toggleMenu() {
+  isActive.value = !isActive.value;
+}
 
 const navigation = reactive([
   {
@@ -178,6 +184,56 @@ const selectedNav = ref();
 const mobileSubNavOpen = ref(false);
 const open = ref(false);
 </script>
+<style>
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 25px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.menu-bar {
+  width: 100%;
+  height: 2.5px;
+  background-color: rgb(229 231 235);
+  border-radius: 100px;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-container:hover .animate-top-left {
+  transform: translateY(10px) translateX(-50%) rotate(90deg);
+  width: 100%;
+}
+
+.menu-container:hover .animate-top-right {
+  transform: translateY(-12px) translateX(15%) rotate(0deg);
+  width: 85%;
+}
+
+.menu-container:hover .animate-middle {
+  transform: translateY(-3px) translateX(60%);
+  width: 60%;
+}
+.animate-middle-right {
+  opacity: 0;
+}
+.animate-bottom {
+  opacity: 0;
+}
+.menu-container:hover .animate-middle-right {
+  opacity: 1;
+  transform: translateX(250%) translateY(-5px) rotate(90deg);
+  width: 35%;
+}
+
+.menu-container:hover .animate-bottom {
+  opacity: 1;
+  transform: translateY(-3px) translateX(15%) rotate(0deg);
+  width: 85%;
+}
+</style>
 <template>
   <div class="bg-transparent">
     <!-- Mobile menu -->
@@ -310,7 +366,13 @@ const open = ref(false);
               @click="open = true"
             >
               <span class="sr-only">Open menu</span>
-              <Bars3Icon class="h-8 w-8" aria-hidden="true" />
+              <div class="menu-container">
+                <div class="menu-bar animate-top-left"></div>
+                <div class="menu-bar animate-top-right"></div>
+                <div class="menu-bar animate-middle"></div>
+                <div class="menu-bar animate-middle-right"></div>
+                <div class="menu-bar animate-bottom"></div>
+              </div>
             </button>
 
             <!-- Logo -->
@@ -672,9 +734,11 @@ const open = ref(false);
           class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2 lg:pb-20"
         >
           <li v-for="person in team" :key="person.name">
-            <div class="flex items-center gap-x-6">
+            <div
+              class="flex flex-col items-center gap-6 bg-[#121212] py-16 rounded-lg"
+            >
               <img
-                class="h-48 w-48 rounded-full"
+                class="h-56 w-56 rounded-full"
                 :src="person.imageUrl"
                 alt=""
               />
@@ -794,7 +858,7 @@ const open = ref(false);
                   ? 'max-h-[500px] p-5'
                   : 'max-h-0 p-0'
               "
-              class=" overflow-hidden font-semibold transition-all duration-500 ease-in-out text-white"
+              class="overflow-hidden font-semibold transition-all duration-500 ease-in-out text-white"
             >
               {{ faq.answer }}
             </div>
