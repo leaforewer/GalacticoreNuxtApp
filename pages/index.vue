@@ -121,49 +121,6 @@ const faqs = reactive([
       "Yes, you can sell your Galacticore NFTs on the Shardeum marketplace or through the project's website. The value of your NFT will depend on a variety of factors, including the rarity of your NFT, the popularity of the project, and the current market conditions.",
   },
 ]);
-const selectedId = ref(0);
-const isOpened = ref(false);
-
-function openFaq(id: number) {
-  if (selectedId.value !== id && isOpened) {
-    isOpened.value = true;
-    selectedId.value = id;
-    return;
-  }
-  isOpened.value = !isOpened.value;
-  selectedId.value = id;
-}
-
-const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-let interval = null;
-
-const animateText = (event: {
-  target: { innerText: string; dataset: { value: string | any[] } };
-}) => {
-  let iteration = 0;
-
-  clearInterval(interval);
-
-  interval = setInterval(() => {
-    event.target.innerText = event.target.innerText
-      .split("")
-      .map((letter, index) => {
-        if (index < iteration) {
-          return event.target.dataset.value[index];
-        }
-
-        return letters[Math.floor(Math.random() * 26)];
-      })
-      .join("");
-
-    if (iteration >= event.target.dataset.value.length) {
-      clearInterval(interval);
-    }
-
-    iteration += 1 / 3;
-  }, 30);
-};
 
 const team = [
   {
@@ -224,58 +181,6 @@ const mobileSubNavOpen = ref(false);
 const open = ref(false);
 </script>
 <style>
-.menu-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  width: 25px;
-  height: 35px;
-  cursor: pointer;
-}
-
-.menu-bar {
-  width: 100%;
-  height: 2.5px;
-  background-color: rgb(229 231 235);
-  border-radius: 100px;
-  transition: all 0.3s ease-in-out;
-}
-
-.menu-container:hover .animate-top-left {
-  transform: translateY(10px) translateX(-50%) rotate(90deg);
-  width: 100%;
-}
-
-.menu-container:hover .animate-top-right {
-  transform: translateY(-12px) translateX(15%) rotate(0deg);
-  width: 85%;
-}
-
-.menu-container:hover .animate-middle {
-  transform: translateY(-3px) translateX(60%);
-  width: 60%;
-}
-
-.animate-middle-right {
-  opacity: 0;
-}
-
-.animate-bottom {
-  opacity: 0;
-}
-
-.menu-container:hover .animate-middle-right {
-  opacity: 1;
-  transform: translateX(250%) translateY(-5px) rotate(90deg);
-  width: 35%;
-}
-
-.menu-container:hover .animate-bottom {
-  opacity: 1;
-  transform: translateY(-3px) translateX(15%) rotate(0deg);
-  width: 85%;
-}
-
 .screen {
   width: 350px;
   display: flex;
@@ -542,15 +447,8 @@ const open = ref(false);
               @click="open = true"
             >
               <span class="sr-only">Open menu</span>
-              <div class="menu-container">
-                <div class="menu-bar animate-top-left"></div>
-                <div class="menu-bar animate-top-right"></div>
-                <div class="menu-bar animate-middle"></div>
-                <div class="menu-bar animate-middle-right"></div>
-                <div class="menu-bar animate-bottom"></div>
-              </div>
+              <GlobalShapeShiftG />
             </button>
-
             <!-- Logo -->
             <div class="ml-auto flex lg:ml-0">
               <a href="#">
@@ -680,21 +578,12 @@ const open = ref(false);
         />
       </div>
       <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-        <div class="menu-container mx-auto">
-          <div class="menu-bar animate-top-left"></div>
-          <div class="menu-bar animate-top-right"></div>
-          <div class="menu-bar animate-middle"></div>
-          <div class="menu-bar animate-middle-right"></div>
-          <div class="menu-bar animate-bottom"></div>
-        </div>
-        <div class="text-center">
-          <h1
+        <GlobalShapeShiftG class="mx-auto" />
+        <div class="text-center mt-4">
+          <GlobalAnimatedText
             class="text-white text-3xl tracking-widest font-bold"
-            data-value="WELCOME TO GALACTICORE"
-            @mouseover="animateText"
-          >
-            WELCOME TO GALACTICORE
-          </h1>
+            text="WELCOME TO GALACTICORE"
+          />
           <h1
             class="text-4xl font-bold sm:!leading-normal tracking-normal text-gray-200 sm:text-6xl"
           >
@@ -1009,40 +898,7 @@ const open = ref(false);
         <h2 class="text-3xl text-gray-300 mx-auto mb-16">
           Frequently Asked Questions [FAQ]
         </h2>
-        <ul class="flex flex-col justify-center items-center w-full">
-          <li
-            v-for="(faq, index) in faqs"
-            @click="openFaq(faq.id)"
-            :class="[
-              index === 0 ? 'rounded-t-md' : '',
-              index > faqs.length - 2 ? 'rounded-b-md' : '',
-              isOpened && faq.id === selectedId
-                ? 'bg-sky-400 hover:text-white hover:font-normal'
-                : 'bg-[#121212]',
-            ]"
-            class="py-5 px-3 w-full border border-gray-500 cursor-pointer text-white hover:text-gray-400 hover:font-bold transition-all ease-in-out"
-          >
-            <div class="flex justify-between items-center">
-              <span>{{ faq.question }}</span>
-              <div>
-                <ChevronDownIcon
-                  class="h-6 w-6 transition-all"
-                  :class="isOpened && faq.id === selectedId ? 'rotate-180' : ''"
-                />
-              </div>
-            </div>
-            <div
-              :class="
-                isOpened && faq.id === selectedId
-                  ? 'max-h-[500px] p-5'
-                  : 'max-h-0 p-0'
-              "
-              class="overflow-hidden font-semibold transition-all duration-500 ease-in-out text-white"
-            >
-              {{ faq.answer }}
-            </div>
-          </li>
-        </ul>
+        <GlobalFaq :items="faqs" />
       </div>
     </div>
   </div>
