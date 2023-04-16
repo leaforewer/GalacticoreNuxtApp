@@ -134,26 +134,65 @@ function openFaq(id: number) {
   selectedId.value = id;
 }
 
+const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+let interval = null;
+
+const animateText = (event: {
+  target: { innerText: string; dataset: { value: string | any[] } };
+}) => {
+  let iteration = 0;
+
+  clearInterval(interval);
+
+  interval = setInterval(() => {
+    event.target.innerText = event.target.innerText
+      .split("")
+      .map((letter, index) => {
+        if (index < iteration) {
+          return event.target.dataset.value[index];
+        }
+
+        return letters[Math.floor(Math.random() * 26)];
+      })
+      .join("");
+
+    if (iteration >= event.target.dataset.value.length) {
+      clearInterval(interval);
+    }
+
+    iteration += 1 / 3;
+  }, 30);
+};
+
 const team = [
   {
     name: "Leaforewer",
     role: "Co-Founder / CEO",
     imageUrl: "/img/ceo2.png",
+    bg_image:
+      "https://images.unsplash.com/photo-1515266591878-f93e32bc5937?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2574&q=80",
   },
   {
     name: "Ferrosia",
     role: "Co-Founder / CEO",
     imageUrl: "/img/ceo1.png",
+    bg_image:
+      "https://images.unsplash.com/photo-1515266591878-f93e32bc5937?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2574&q=80",
   },
   {
     name: "Flyingcat",
     role: "Artist / Designer",
     imageUrl: "/img/artist.png",
+    bg_image:
+      "https://images.unsplash.com/photo-1515266591878-f93e32bc5937?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2574&q=80",
   },
   {
     name: "Dhexphod",
     role: "Market Analyst",
     imageUrl: "img/analyst.png",
+    bg_image:
+      "https://images.unsplash.com/photo-1515266591878-f93e32bc5937?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2574&q=80",
   },
 ];
 
@@ -216,12 +255,15 @@ const open = ref(false);
   transform: translateY(-3px) translateX(60%);
   width: 60%;
 }
+
 .animate-middle-right {
   opacity: 0;
 }
+
 .animate-bottom {
   opacity: 0;
 }
+
 .menu-container:hover .animate-middle-right {
   opacity: 1;
   transform: translateX(250%) translateY(-5px) rotate(90deg);
@@ -232,6 +274,140 @@ const open = ref(false);
   opacity: 1;
   transform: translateY(-3px) translateX(15%) rotate(0deg);
   width: 85%;
+}
+
+.screen {
+  width: 350px;
+  display: flex;
+  border: 2px solid #9fe870;
+  aspect-ratio: 10 / 14;
+  border-radius: 1rem;
+  background-color: #2f5c11;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+.screen:after,
+.screen:before {
+  content: "";
+  height: 5px;
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  translate: -50% 0%;
+  background-color: white;
+}
+
+.screen:before {
+  width: 15%;
+  top: 0rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.screen:after {
+  width: 25%;
+  bottom: 0rem;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+@keyframes pan-overlay {
+  from {
+    background-position: 0% 0%;
+  }
+
+  to {
+    background-position: 0% -100%;
+  }
+}
+
+.screen-overlay {
+  background: linear-gradient(
+    rgb(33 150 243 / 0.15),
+    rgb(33 150 243 / 0.15) 3px,
+    transparent 3px,
+    transparent 9px
+  );
+  background-size: 100% 9px;
+  height: 100%;
+  width: 100%;
+  animation: pan-overlay 22s infinite linear;
+  position: absolute;
+  z-index: 2;
+  left: 0px;
+  top: 0px;
+}
+
+@keyframes pan-image {
+  0% {
+    background-position: 36% 42%;
+    background-size: 200%;
+  }
+
+  20% {
+    background-position: 30% 35%;
+    background-size: 200%;
+  }
+
+  20.0001% {
+    /* -- View 2 -- */
+    background-position: 60% 85%;
+    background-size: 500%;
+  }
+
+  40% {
+    background-position: 49% 81%;
+    background-size: 500%;
+  }
+
+  40.0001% {
+    /* -- View 3 -- */
+    background-position: 80% 42%;
+    background-size: 300%;
+  }
+
+  60% {
+    background-position: 84% 33%;
+    background-size: 300%;
+  }
+
+  60.0001% {
+    /* -- View 4 -- */
+    background-position: 0% 0%;
+    background-size: 300%;
+  }
+
+  80% {
+    background-position: 15% 4%;
+    background-size: 300%;
+  }
+
+  80.0001% {
+    /* -- View 5 -- */
+    background-position: 80% 10%;
+    background-size: 300%;
+  }
+
+  100% {
+    background-position: 72% 14%;
+    background-size: 300%;
+  }
+}
+
+.screen > .screen-image {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  z-index: 1;
+  left: 0px;
+  top: 0px;
+  background-size: 300%;
+  background-position: 0% 0%;
+  filter: sepia(100%) hue-rotate(120deg);
+  opacity: 0.75;
+  animation: pan-image 15s linear infinite;
 }
 </style>
 <template>
@@ -504,27 +680,38 @@ const open = ref(false);
         />
       </div>
       <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-        <div class="hidden sm:mb-8 sm:flex sm:justify-center">
-          <div
-            class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-200 ring-1 ring-gray-900/10 hover:ring-gray-900/20"
-          >
-            Announcing our next steps here.
-            <a href="#" class="font-semibold text-indigo-600"
-              ><span class="absolute inset-0" aria-hidden="true" />Read more
-              <span aria-hidden="true">&rarr;</span></a
-            >
-          </div>
+        <div class="menu-container mx-auto">
+          <div class="menu-bar animate-top-left"></div>
+          <div class="menu-bar animate-top-right"></div>
+          <div class="menu-bar animate-middle"></div>
+          <div class="menu-bar animate-middle-right"></div>
+          <div class="menu-bar animate-bottom"></div>
         </div>
         <div class="text-center">
           <h1
-            class="text-4xl font-bold sm:!leading-normal tracking-tight text-gray-200 sm:text-6xl"
+            class="text-white text-3xl tracking-widest font-bold"
+            data-value="WELCOME TO GALACTICORE"
+            @mouseover="animateText"
           >
-            Explore the Cosmos with Galacticore<span
-              class="mt-2 block text-base text-gray-400 italic tracking-widest"
-              >Own Your Piece of the Universe!</span
-            >
+            WELCOME TO GALACTICORE
           </h1>
-          <p class="mt-6 text-lg leading-8 text-gray-500">
+          <h1
+            class="text-4xl font-bold sm:!leading-normal tracking-normal text-gray-200 sm:text-6xl"
+          >
+            Explore the Cosmos
+          </h1>
+          <div class="hidden sm:mb-2 sm:flex sm:justify-center">
+            <div
+              class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-200 hover:ring-gray-900/20"
+            >
+              Announcing our next steps here.
+              <a href="#" class="font-semibold text-[#9fe870]"
+                ><span class="absolute inset-0" aria-hidden="true" />read more
+                <span aria-hidden="true">&rarr;</span></a
+              >
+            </div>
+          </div>
+          <p class="mt-6 text-lg leading-8 text-gray-400">
             Galacticore NFT is a collection of unique, hand-crafted digital
             assets inspired by the vast expanse of the universe. Each NFT is a
             one-of-a-kind collectible that offers a glimpse into the mysteries
@@ -734,30 +921,37 @@ const open = ref(false);
           class="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2 lg:pb-20"
         >
           <li v-for="person in team" :key="person.name">
-            <div
-              class="flex flex-col items-center gap-6 bg-[#121212] py-16 rounded-lg"
-            >
-              <img
-                class="h-56 w-56 rounded-full"
-                :src="person.imageUrl"
-                alt=""
-              />
-              <div>
-                <h3
-                  class="text-lg font-semibold leading-7 tracking-relaxed text-gray-300"
-                >
-                  {{ person.name }}
-                </h3>
-                <p class="text-sm italic font-bold leading-6 text-sky-600">
-                  {{ person.role }}
-                </p>
+            <div class="screen">
+              <div
+                class="screen-image"
+                :style="{ backgroundImage: `url(${person.bg_image})` }"
+              ></div>
+              <div class="screen-overlay"></div>
+              <div
+                class="screen-content relative z-[2] flex flex-col flex-1 justify-end items-center p-5"
+              >
+                <img
+                  class="h-56 w-56 rounded-full opacity-80"
+                  :src="person.imageUrl"
+                  alt=""
+                />
+                <div class="text-center mt-12">
+                  <h3
+                    class="text-xl tracking-widest font-semibold leading-7 tracking-relaxed text-white"
+                  >
+                    {{ person.name }}
+                  </h3>
+                  <p class="text-sm italic font-bold leading-6 text-white">
+                    {{ person.role }}
+                  </p>
+                </div>
               </div>
             </div>
           </li>
         </ul>
       </div>
       <div
-        class="absolute -bottom-2 left-0 w-full z-0 overflow-hidden leading-0 rotate-180"
+        class="absolute -bottom-2 left-0 w-full -z-0 overflow-hidden leading-0 rotate-180"
       >
         <svg
           data-name="Layer 1"
@@ -772,22 +966,7 @@ const open = ref(false);
         </svg>
       </div>
     </div>
-    <div class="bg-gray-100 relative">
-      <div
-        class="absolute -bottom-2 left-0 w-full z-0 overflow-hidden leading-0 rotate-180"
-      >
-        <svg
-          data-name="Layer 1"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M1200 120L0 16.48 0 0 1200 0 1200 120z"
-            class="fill-[#060714]"
-          ></path>
-        </svg>
-      </div>
+    <div class="bg-gray-100">
       <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div
           class="mx-auto max-w-2xl py-16 sm:py-24 lg:pb-56 lg:pt-0 lg:max-w-none lg:py-32"
@@ -825,7 +1004,7 @@ const open = ref(false);
         </div>
       </div>
     </div>
-    <div class="py-24 sm:py-32">
+    <div class="py-24 sm:py-32 relative">
       <div class="mx-auto grid max-w-5xl px-6 lg:px-8">
         <h2 class="text-3xl text-gray-300 mx-auto mb-16">
           Frequently Asked Questions [FAQ]
