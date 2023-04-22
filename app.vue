@@ -34,7 +34,6 @@ onMounted(() => {
 <template>
   <NuxtLoadingIndicator />
   <div id="blob" ref="blob"></div>
-  <div id="blur"></div>
   <NuxtPage class="relative z-10" />
 </template>
 <style>
@@ -44,7 +43,7 @@ onMounted(() => {
   }
 
   50% {
-    scale: 1 1.5;
+    scale: 1 1.25;
   }
 
   to {
@@ -66,15 +65,8 @@ onMounted(() => {
     rgb(52, 205, 254) 50%,
     rgb(0, 71, 225) 100%
   );
+  filter: blur(13vw);
   animation: rotate 20s infinite;
   opacity: 0.8;
-}
-
-#blur {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  z-index: 0;
-  backdrop-filter: blur(12vmax);
 }
 </style>
