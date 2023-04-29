@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
-
 import {
-  Bars3Icon,
   ChevronRightIcon,
-  ChevronDownIcon,
   DocumentTextIcon,
   PuzzlePieceIcon,
-  XMarkIcon,
 } from "@heroicons/vue/24/outline";
 import Navigation from "~/components/Global/Navigation.vue";
 
