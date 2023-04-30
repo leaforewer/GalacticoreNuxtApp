@@ -24,6 +24,7 @@
     "@heroicons/vue": "^2.0.17",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "gh-pages": "^5.0.0",
+    "html2canvas": "^1.4.1",
     "vue": "^3.2.47"
   }
 }
