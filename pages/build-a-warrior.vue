@@ -8,6 +8,7 @@ import {
   TransitionRoot,
 } from "@headlessui/vue";
 import { CheckIcon } from "@heroicons/vue/24/outline";
+import SlideOver from '~/components/Global/SlideOver.vue'
 
 let layers = reactive<any>({});
 const headKey = ref(0);
