@@ -159,8 +159,6 @@ const slideRight = () => {
 const addedCards = [...cards];
 cards.push(...addedCards);
 
-const selectedNav = ref();
-const mobileSubNavOpen = ref(false);
 const open = ref(false);
 </script>
 <style>
@@ -301,11 +299,11 @@ const open = ref(false);
 <template>
   <NuxtLayout>
     <template #navigation>
-      <Navigation :navigation="navigation" />
+      <Navigation home-page="#start" :navigation="navigation" />
     </template>
     <template #content>
       <!--    Hero Section -->
-      <div class="relative isolate px-6 py-20 lg:px-8">
+      <div id="start" class="relative isolate px-6 py-20 lg:px-8">
         <div
           class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"
@@ -557,8 +555,36 @@ const open = ref(false);
       </div>
       <div class="py-24 sm:py-32 relative">
         <div
+          class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+          aria-hidden="true"
+        >
+          <div
+            class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-sky-500 to-sky-200 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            style="
+              clip-path: polygon(
+                74.1% 44.1%,
+                100% 61.6%,
+                97.5% 26.9%,
+                85.5% 0.1%,
+                80.7% 2%,
+                72.5% 32.5%,
+                60.2% 62.4%,
+                52.4% 68.1%,
+                47.5% 58.3%,
+                45.2% 34.5%,
+                27.5% 76.7%,
+                0.1% 64.9%,
+                17.9% 100%,
+                27.6% 76.8%,
+                76.1% 97.7%,
+                74.1% 44.1%
+              );
+            "
+          />
+        </div>
+        <div
           id="team"
-          class="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3"
+          class="mx-auto grid md:max-w-[90rem] gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3"
         >
           <div class="max-w-2xl">
             <h2 class="text-3xl tracking-tight text-gray-300 sm:text-4xl">
@@ -605,67 +631,83 @@ const open = ref(false);
           </ul>
         </div>
         <div
-          class="absolute -bottom-2 left-0 w-full -z-0 overflow-hidden leading-0 rotate-180"
+          class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+          aria-hidden="true"
         >
-          <svg
-            data-name="Layer 1"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M1200 120L0 16.48 0 0 1200 0 1200 120z"
-              class="fill-gray-100"
-            ></path>
-          </svg>
-        </div>
-      </div>
-      <div class="bg-gray-100">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div
-            class="mx-auto max-w-2xl py-16 sm:py-24 lg:pb-56 lg:pt-0 lg:max-w-none lg:py-32"
-          >
-            <h2 class="text-2xl font-bold tracking-wide text-gray-900">
-              Check Out These Too!
-            </h2>
-            <div
-              class="mt-6 space-y-12 lg:grid lg:grid-cols-4 lg:gap-x-6 lg:space-y-0"
-            >
-              <div
-                v-for="callout in callouts"
-                :key="callout.name"
-                class="group relative col-span-2"
-              >
-                <div
-                  class="relative h-32 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-2 group-hover:opacity-75 sm:h-32"
-                >
-                  <component
-                    :is="callout.icon"
-                    class="h-32 w-full p-16 bg-gray-200 object-cover object-center"
-                  />
-                </div>
-                <h3 class="mt-6 text-sm text-gray-500">
-                  <a :href="callout.href">
-                    <span class="absolute inset-0" />
-                    {{ callout.name }}
-                  </a>
-                </h3>
-                <p class="text-base font-semibold text-gray-900">
-                  {{ callout.description }}
-                </p>
-              </div>
-            </div>
-          </div>
+            class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-sky-400 to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+            style="
+              clip-path: polygon(
+                74.1% 44.1%,
+                100% 61.6%,
+                97.5% 26.9%,
+                85.5% 0.1%,
+                80.7% 2%,
+                72.5% 32.5%,
+                60.2% 62.4%,
+                52.4% 68.1%,
+                47.5% 58.3%,
+                45.2% 34.5%,
+                27.5% 76.7%,
+                0.1% 64.9%,
+                17.9% 100%,
+                27.6% 76.8%,
+                76.1% 97.7%,
+                74.1% 44.1%
+              );
+            "
+          />
         </div>
       </div>
       <div class="py-24 sm:py-32 relative">
         <div class="mx-auto grid max-w-5xl px-6 lg:px-8">
-          <h2 class="text-3xl text-gray-300 mx-auto mb-16">
-            Frequently Asked Questions [FAQ]
+          <h2
+            style="font-family: 'Josefin Sans', sans-serif"
+            class="lg:text-8xl font-light tracking-wider text-gray-50 mx-auto mb-16"
+          >
+            FAQ
           </h2>
           <GlobalFaq :items="faqs" />
         </div>
       </div>
+      <footer class="bg-[#222222] rounded-lg shadow">
+        <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+          <div class="sm:flex sm:items-center sm:justify-between">
+            <a href="#"
+              ><span class="sr-only">Galacticore NFT</span
+              ><img class="h-20 w-auto" src="/img/galacticore-logo.png" alt=""
+            /></a>
+            <ul
+              class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
+            >
+              <li v-for="navitem in navigation">
+                <a
+                  v-if="!navitem.subNavigation"
+                  :href="navitem.href"
+                  class="mr-4 hover:underline md:mr-6"
+                  >{{ navitem.name }}</a
+                >
+                <button
+                  v-if="navitem.subNavigation"
+                  :href="navitem.href"
+                  class="mr-4 hover:underline md:mr-6"
+                >
+                  {{ navitem.name }}
+                </button>
+              </li>
+            </ul>
+          </div>
+          <hr
+            class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"
+          />
+          <span
+            class="block text-sm text-gray-500 sm:text-center dark:text-gray-400"
+            >© 2023
+            <a href="https://flowbite.com/" class="hover:underline">Flowbite™</a
+            >. All Rights Reserved.</span
+          >
+        </div>
+      </footer>
     </template>
   </NuxtLayout>
 </template>

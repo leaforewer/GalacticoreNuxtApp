@@ -14,6 +14,11 @@ defineProps({
     type: String,
     required: true,
   },
+  customClass: {
+    type: String,
+    required: false,
+    default: "",
+  },
 });
 
 const isOpen = ref(false);
@@ -21,7 +26,8 @@ const isOpen = ref(false);
 <template>
   <button
     @click="isOpen = true"
-    class="text-gray-800 rounded-lg p-4 bg-gray-300 hover:bg-gray-400 transition-all ease-in-out w-full"
+    :class="customClass"
+    class="text-gray-50 rounded p-4 mx-2 bg-[#222222] text-sm lg:text-base hover:-translate-y-2 hover:bg-[#333333] hover:shadow-[5px_5px_2px_3px_#84ff3d] transition-all ease-out"
   >
     Select a {{ content }}
   </button>

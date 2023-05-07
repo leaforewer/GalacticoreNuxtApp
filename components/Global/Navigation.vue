@@ -18,6 +18,10 @@ const props = defineProps({
     type: Array,
     required: true,
   },
+  homePage: {
+    type: String,
+    required: true,
+  },
 });
 
 const navigation = reactive(props.navigation);
@@ -161,10 +165,10 @@ const mobileSubNavisOpen = ref(false);
           </button>
           <!-- Logo -->
           <div class="ml-auto flex lg:ml-0">
-            <a href="#">
+            <NuxtLink :href="homePage">
               <span class="sr-only">Galacticore NFT</span>
               <img class="h-20 w-auto" src="/img/galacticore-logo.png" alt="" />
-            </a>
+            </NuxtLink>
           </div>
           <PopoverGroup
             v-if="navigation.length"
@@ -205,7 +209,6 @@ const mobileSubNavisOpen = ref(false);
                     ></span>
                   </PopoverButton>
                 </div>
-
                 <transition
                   enter-active-class="transition ease-out duration-200"
                   enter-from-class="opacity-0 translate-y-1"

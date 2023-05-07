@@ -31,8 +31,8 @@ function openItem(id: number) {
         index === 0 ? 'rounded-t-md' : '',
         index > items.length - 2 ? 'rounded-b-md' : '',
         isOpened && item.id === selectedId
-          ? 'bg-sky-400 hover:text-white hover:font-normal'
-          : 'bg-[#121212]',
+          ? 'bg-[#333333] hover:text-white hover:font-normal'
+          : 'bg-[#222222]',
       ]"
       class="py-5 px-3 w-full border border-gray-500 cursor-pointer text-white hover:text-gray-400 hover:font-bold transition-all ease-in-out"
     >

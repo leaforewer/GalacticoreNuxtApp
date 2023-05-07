@@ -8,7 +8,9 @@ import {
   TransitionRoot,
 } from "@headlessui/vue";
 import { CheckIcon } from "@heroicons/vue/24/outline";
-import SlideOver from '~/components/Global/SlideOver.vue'
+import SlideOver from "~/components/Global/SlideOver.vue";
+import GradientText from "~/components/Global/GradientText.vue";
+import Navigation from "~/components/Global/Navigation.vue";
 
 let layers = reactive<any>({});
 const headKey = ref(0);
@@ -20,7 +22,16 @@ const backKey = ref(0);
 const backgroundKey = ref(0);
 
 const successfulMessage = ref(false);
-const navigation = reactive([]);
+const navigation = reactive([
+  {
+    name: "Home",
+    href: "/",
+  },
+  {
+    name: "White Paper",
+    href: "https://docs.galacticore-nft.com/",
+  },
+]);
 const images = reactive({
   head: {},
   eye: {},
@@ -148,14 +159,34 @@ function downloadImage() {
 </script>
 <template>
   <NuxtLayout>
+    <template #navigation>
+      <Navigation home-page="/" :navigation="navigation" />
+    </template>
     <template #content>
-      <div class="w-full h-[85vh] flex justify-center items-center">
-        <div class="flex md:flex-nowrap flex-wrap gap-4 w-full max-w-5xl">
-          <div class="w-1/2 p-4">
+      <div
+        class="w-full flex flex-col justify-between items-start h-[87vh] md:h-[85vh] mx-auto max-w-6xl mt-10"
+      >
+        <div class="w-full">
+          <GradientText
+            class="text-3xl md:text-[60px] !tracking-widest text-center mb-10 lg:mb-20 font-bold uppercase"
+          >
+            Build-a-warrior
+          </GradientText>
+        </div>
+        <div
+          class="flex w-full md:flex-nowrap justify-center items-start flex-wrap gap-4 mb-10 lg:mb-0"
+        >
+          <div class="w-full px-8 lg:w-1/2 lg:p-4 pt-0 flex justify-center">
             <div
               id="layer-container"
-              class="max-w-[450px] h-[450px] w-full bg-white relative"
+              class="max-w-[500px] w-full bg-white relative"
             >
+              <img
+                class="object-cover opacity-0 invisible"
+                :key="headKey"
+                :src="layers.head"
+                alt="selected head trait"
+              />
               <img
                 class="object-cover absolute inset-0 z-[7]"
                 :key="headKey"
@@ -200,7 +231,9 @@ function downloadImage() {
               />
             </div>
           </div>
-          <div class="flex flex-col justify-center gap-4 items-center w-1/3">
+          <div
+            class="w-full px-8 lg:w-1/2 lg:p-4 grid grid-cols-2 justify-center gap-4 gap-y-6 items-center"
+          >
             <SlideOver content="Head">
               <div class="grid grid-cols-3 gap-x-6 gap-y-4">
                 <div
@@ -291,7 +324,7 @@ function downloadImage() {
                 </div>
               </div>
             </SlideOver>
-            <SlideOver content="Background">
+            <SlideOver content="Background" custom-class="col-span-2">
               <div class="grid grid-cols-3 gap-x-6 gap-y-4">
                 <div
                   v-for="(image, key) in images.background"
@@ -308,10 +341,29 @@ function downloadImage() {
             </SlideOver>
             <button
               @click="downloadImage"
-              class="p-6 w-full bg-gray-800 text-white rounded mt-10"
+              class="p-6 col-span-2 cursor-pointer text-white rounded mt-5 border border-[#f7f7f7] text-center uppercase relative overflow-hidden transition-all hover:text-black after:content-[''] after:absolute after:w-0 after:bottom-0 after:-left-[10%] after:h-[120%] after:skew-x-[15deg] after:-z-[1] hover:after:-left-[10%] after:transition-all after:ease-in-out after:duration-700 hover:after:w-[120%] after:bg-[#f7f7f7]"
             >
               Download
             </button>
+          </div>
+        </div>
+        <div
+          class="relative z-10 w-full mt-auto text-black flex justify-center mb-3 md:mb-16"
+        >
+          <div class="relative">
+            <img
+              src="/img/galacticore-logo.png"
+              alt="galacticore logo"
+              class="w-full h-20 object-contain"
+            />
+            <img
+              src="/img/twitter-logo.svg"
+              class="absolute cursor-pointer -top-2 left-1/2 ml-5 w-6 h-6 z-10 hover:-translate-y-2 hover:scale-110 transition-all ease-in-out"
+            />
+            <img
+              src="/img/discord-logo.svg"
+              class="absolute cursor-pointer -top-2 right-1/2 w-6 h-6 z-10 hover:-translate-y-2 hover:scale-110 transition-all ease-in-out"
+            />
           </div>
         </div>
       </div>
