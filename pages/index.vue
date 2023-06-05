@@ -544,12 +544,43 @@ const open = ref(false);
         <div id="roadmap" class="mx-auto grid max-w-7xl">
           <h1 class="sm:text-4xl text-3xl text-gray-300 my-6">Roadmap</h1>
           <div class="grid grid-cols-12 grid-rows-12 gap-4 mt-10">
-            <div class="col-span-3 row-span-2 bg-blue-500 h-full"></div>
-            <div class="col-span-4 row-span-5 bg-green-500 h-full"></div>
-            <div class="col-span-5 row-span-5 bg-yellow-500 h-full"></div>
-            <div class="col-span-3 row-span-6 bg-pink-500 h-full"></div>
-            <div class="col-span-5 row-span-3 bg-red-500 h-full"></div>
-            <div class="col-span-4 row-span-3 bg-purple-500 h-full"></div>
+            <div
+              class="col-span-4 row-span-4 bg-neutral-700 h-full rounded-lg relative overflow-hidden min-h-[500px]"
+            >
+              <img
+                src="/img/roadmap/idea.png"
+                alt="doodle coin"
+                class="absolute bottom-0 left-3 object-cover w-auto h-[300px]"
+              />
+            </div>
+            <div
+              class="col-span-3 row-span-5 bg-green-500 h-full rounded-lg relative overflow-hidden"
+            >
+              <img
+                src="/img/roadmap/smol.png"
+                alt="doodle coin"
+                class="absolute bottom-0 left-1/2 -translate-x-1/2 max-h-[450px]"
+              />
+            </div>
+            <div
+              class="col-span-5 row-span-5 bg-yellow-500 h-full rounded-lg relative overflow-hidden"
+            >
+              <img
+                src="/img/roadmap/doodle_launch.png"
+                alt="doodle coin"
+                class="absolute bottom-0 left-0 object-cover w-auto h-[300px]"
+              />
+            </div>
+            <div
+              class="col-span-4 row-span-3 bg-pink-500 h-full rounded-lg relative overflow-hidden"
+            >
+              <img src="/img/roadmap/idea.png" alt="doodle coin" />
+            </div>
+            <div
+              class="col-span-8 row-span-1 bg-red-500 h-full rounded-lg relative overflow-hidden"
+            >
+              <img src="/img/roadmap/doodle_coin.png" alt="doodle coin" />
+            </div>
           </div>
         </div>
       </div>
