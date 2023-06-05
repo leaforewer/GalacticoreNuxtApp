@@ -160,6 +160,14 @@ const addedCards = [...cards];
 cards.push(...addedCards);
 
 const open = ref(false);
+
+const characters = ["S", "M", "O", "L"];
+
+const rotation = () => {
+  const degrees = 180;
+  const chars = characters.filter((c) => c !== " ");
+  return degrees / (chars.length - 1);
+};
 </script>
 <style>
 .screen {
@@ -294,6 +302,23 @@ const open = ref(false);
   filter: sepia(100%) hue-rotate(120deg);
   opacity: 0.75;
   animation: pan-image 15s linear infinite;
+}
+
+.text {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transform: rotate(-40deg);
+}
+
+.letter {
+  font-size: 150px;
+  text-transform: uppercase;
+  letter-spacing: 200px;
+  position: absolute;
+  transform-origin: bottom;
+  bottom: 50%;
+  left: 50%;
 }
 </style>
 <template>
@@ -541,15 +566,105 @@ const open = ref(false);
         </div>
       </div>
       <div class="py-24 sm:py-32">
-        <div id="roadmap" class="mx-auto grid max-w-7xl">
+        <div id="roadmap" class="mx-auto container">
           <h1 class="sm:text-4xl text-3xl text-gray-300 my-6">Roadmap</h1>
-          <div class="grid grid-cols-12 grid-rows-12 gap-4 mt-10">
-            <div class="col-span-3 row-span-2 bg-blue-500 h-full"></div>
-            <div class="col-span-4 row-span-5 bg-green-500 h-full"></div>
-            <div class="col-span-5 row-span-5 bg-yellow-500 h-full"></div>
-            <div class="col-span-3 row-span-6 bg-pink-500 h-full"></div>
-            <div class="col-span-5 row-span-3 bg-red-500 h-full"></div>
-            <div class="col-span-4 row-span-3 bg-purple-500 h-full"></div>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 grid-rows-2 gap-4 mt-10"
+          >
+            <div
+              class="bg-sky-500 h-full rounded-lg relative overflow-hidden lg:col-span-2 shadow-lg"
+              style="
+                box-shadow: inset 0 0 20px rgba(96, 165, 250, 0.5),
+                  0 0 10px rgba(96, 165, 250, 0.5);
+              "
+            >
+              <span
+                class="absolute top-12 left-8 uppercase text-6xl rotate-[340deg] font-['Concert_One',cursive] drop-shadow-[0_20px_25px_rgb(0_0_0_/_1)]"
+                >Found It!</span
+              >
+              <span
+                class="absolute bottom-2 right-3 uppercase text-2xl font-['Concert_One',cursive] drop-shadow-[0_20px_25px_rgb(0_0_0_/_1)]"
+                >Q2 2022</span
+              >
+              <img
+                src="/img/roadmap/idea.png"
+                alt="doodle coin"
+                class="absolute bottom-0 left-10 object-cover w-[350px] h-auto"
+              />
+            </div>
+            <div
+              class="bg-rose-500 h-full rounded-lg relative overflow-hidden lg:col-span-2 shadow-lg"
+              style="
+                box-shadow: inset 0 0 20px rgba(252, 165, 165, 0.5),
+                  0 0 10px rgba(252, 165, 165, 0.5);
+              "
+            >
+              <span
+                class="absolute bottom-1/4 left-1/3 -translate-x-1/2 uppercase text-5xl font-['Concert_One',cursive]"
+              >
+                <p class="text">
+                  <span
+                    class="letter"
+                    v-for="(char, index) in characters"
+                    :key="index"
+                    :style="{ transform: `rotate(${index * rotation()}deg)` }"
+                    >{{ char }}</span
+                  >
+                </p>
+              </span>
+              <span
+                class="absolute top-5 left-5 uppercase text-6xl tracking-widest font-['Concert_One',cursive]"
+                >SOLD <span class="ml-32">OUT!</span></span
+              >
+              <span
+                class="absolute bottom-2 right-3 uppercase text-2xl font-['Concert_One',cursive] drop-shadow-[0_20px_25px_rgb(0_0_0_/_1)]"
+                >Q3 2022</span
+              >
+              <img
+                src="/img/roadmap/smol.png"
+                alt="doodle coin"
+                class="absolute -bottom-2 left-1/2 -translate-x-1/2 max-h-[450px]"
+              />
+            </div>
+            <div
+              class="bg-amber-500 h-full rounded-lg relative overflow-hidden lg:col-span-2 shadow-lg"
+              style="
+                box-shadow: inset 0 0 20px rgba(251, 191, 36, 0.5),
+                  0 0 10px rgba(251, 191, 36, 0.5);
+              "
+            >
+              <img
+                src="/img/roadmap/doodle_launch.png"
+                alt="doodle coin"
+                class="absolute bottom-0 left-5 object-cover w-auto h-[300px]"
+              />
+            </div>
+            <div
+              class="bg-orange-400 h-full rounded-lg relative overflow-hidden md:col-span-3 lg:col-span-3 shadow-lg"
+              style="
+                box-shadow: inset 0 0 20px rgba(249, 115, 22, 0.5),
+                  0 0 10px rgba(249, 115, 22, 0.5);
+              "
+            >
+              <img
+                src="/img/roadmap/game222.png"
+                alt="doodle coin"
+                class="absolute -bottom-14 left-0 w-full object-contain"
+              />
+            </div>
+            <div
+              class="bg-emerald-500 h-full rounded-lg relative overflow-hidden min-h-[450px] md:col-span-3 lg:col-span-3 shadow-lg"
+              style="
+                box-shadow: inset 0 0 20px rgba(5, 150, 105, 0.5),
+                  0 0 10px rgba(5, 150, 105, 0.5);
+              "
+            >
+              <img
+                class="absolute bottom-0 left-10 max-w-[550px]"
+                src="/img/roadmap/doodle_coin.png"
+                alt="doodle coin"
+              />
+            </div>
           </div>
         </div>
       </div>
