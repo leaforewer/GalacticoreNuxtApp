@@ -15,6 +15,7 @@ module.exports = {
     fontFamily: {
       sans: ["Lexend", ...defaultTheme.fontFamily.sans],
       heading: ["Ubuntu", "sans-serif"],
+      roadmap: ["Concert_One", "cursive"],
     },
   },
   plugins: [require("@tailwindcss/aspect-ratio")],
