@@ -12,6 +12,18 @@ module.exports = {
     "./app.vue",
   ],
   theme: {
+    extend: {
+      animation: {
+        float: "float 5s linear infinite",
+      },
+      keyframes: {
+        float: {
+          "0%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-5px)" },
+          "10%": { transform: "translateY(0px)" },
+        },
+      },
+    },
     fontFamily: {
       sans: ["Lexend", ...defaultTheme.fontFamily.sans],
       heading: ["Ubuntu", "sans-serif"],

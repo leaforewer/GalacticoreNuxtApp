@@ -1,10 +1,11 @@
 <script setup lang="ts">
 useHead({
   bodyAttrs: {
-    class: "font-sans antialiased relative",
+    class: "bg-[#121212] scroll-smooth font-sans overflow-x-hidden antialiased",
   },
   htmlAttrs: {
-    class: "h-full bg-[#121212] overflow-x-hidden scroll-smooth",
+    lang: "en",
+    class: "overflow-x-hidden",
   },
 });
 </script>

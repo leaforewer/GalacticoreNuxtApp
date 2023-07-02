@@ -151,7 +151,10 @@ const mobileSubNavisOpen = ref(false);
   </TransitionRoot>
   <!--  end mobile menu -->
   <!-- navigation -->
-  <header class="relative z-20">
+  <header
+    class="relative z-20 transition-all ease-in-out duration-1000"
+    v-bind="$attrs"
+  >
     <nav aria-label="Top" class="mx-auto max-w-7xl p-4 sm:p-6 lg:p-8">
       <div>
         <div class="flex h-16 items-center">
@@ -161,7 +164,7 @@ const mobileSubNavisOpen = ref(false);
             @click="isOpen = true"
           >
             <span class="sr-only">isOpen menu</span>
-            <GlobalShapeShiftG />
+            <ShapeShiftG />
           </button>
           <!-- Logo -->
           <div class="ml-auto flex lg:ml-0">

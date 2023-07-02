@@ -8,9 +8,9 @@ import {
   TransitionRoot,
 } from "@headlessui/vue";
 import { CheckIcon } from "@heroicons/vue/24/outline";
-import SlideOver from "~/components/Global/SlideOver.vue";
-import GradientText from "~/components/Global/GradientText.vue";
-import Navigation from "~/components/Global/Navigation.vue";
+import SlideOver from "~/components/global/SlideOver.vue";
+import GradientText from "~/components/global/GradientText.vue";
+import Navigation from "~/components/global/Navigation.vue";
 
 let layers = reactive<any>({});
 const headKey = ref(0);

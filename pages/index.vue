@@ -5,17 +5,8 @@ import {
   DocumentTextIcon,
   PuzzlePieceIcon,
 } from "@heroicons/vue/24/outline";
-import Navigation from "~/components/Global/Navigation.vue";
-import TeamCard from "~/components/Global/TeamCard.vue";
-
-useHead({
-  bodyAttrs: {
-    class: "font-sans antialiased relative",
-  },
-  htmlAttrs: {
-    class: "h-full bg-[#121212] overflow-x-hidden scroll-smooth",
-  },
-});
+import Navigation from "~/components/global/Navigation.vue";
+import TeamCard from "~/components/global/TeamCard.vue";
 
 const navigation = reactive([
   {
@@ -156,6 +147,18 @@ const rotation = () => {
 const initiateEasterEgg = () => {
   console.log("easter egg 1");
 };
+
+const isLargeScreen = ref();
+
+onMounted(() => {
+  isLargeScreen.value = window.innerWidth >= 768;
+});
+
+const isWelcomeOpen = ref(false);
+
+const openWelcomeSection = () => {
+  isWelcomeOpen.value = true;
+};
 </script>
 <style>
 .text {
@@ -178,11 +181,18 @@ const initiateEasterEgg = () => {
 <template>
   <NuxtLayout>
     <template #navigation>
-      <Navigation home-page="#start" :navigation="navigation" />
+      <Navigation
+        :class="isWelcomeOpen ? 'translate-y-0' : '-translate-y-full'"
+        home-page="#start"
+        :navigation="navigation"
+      />
     </template>
     <template #content>
       <!--    Hero Section -->
-      <div id="start" class="relative isolate px-6 py-20 lg:px-8">
+      <div
+        id="start"
+        class="relative isolate px-6 py-20 lg:px-8 h-[calc(100vh-16rem)] 2xl:h-[calc(100vh-5rem)]"
+      >
         <div
           class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
           aria-hidden="true"
@@ -211,17 +221,44 @@ const initiateEasterEgg = () => {
             "
           />
         </div>
-        <div class="mx-auto max-w-3xl py-32 sm:py-48 lg:py-56">
-          <GlobalShapeShiftG class="mx-auto" />
-          <div class="text-center mt-4">
-            <GlobalAnimatedText
-              class="text-white text-3xl tracking-widest font-bold font-[Sen_,sans-serif]"
+        <div
+          :class="isWelcomeOpen ? 'brightness-75' : ''"
+          class="absolute inset-x-0 -z-10 duration-1000"
+        >
+          <img
+            class="w-full h-full object-contain animate-float 2xl:object-cover"
+            src="/img/home-portal-bg.png"
+            alt="portal-background"
+          />
+        </div>
+        <div
+          :class="isWelcomeOpen ? 'brightness-75' : ''"
+          class="absolute inset-x-0 top-0 flex justify-center mr-4 md:mr-10 duration-1000 transition-all ease-in-out"
+        >
+          <img
+            @click="openWelcomeSection"
+            style="filter: drop-shadow(0px 0px 76px rgb(178, 235, 235, 0.5))"
+            class="h-full object-contain w-[200px] md:w-[550px] 2xl:w-[650px] animate-[spin_7s_linear_infinite] cursor-pointer"
+            src="/img/portal.png"
+            alt="portal"
+          />
+        </div>
+        <div
+          :class="
+            isWelcomeOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          "
+          class="mx-auto mt-auto duration-1000 h-full flex items-center relative z-20 max-w-4xl py-6 sm:py-48 lg:py-0 transition-all ease-in-out"
+        >
+          <div class="w-full text-center mt-4">
+            <ShapeShiftG class="mx-auto" />
+            <AnimatedText
+              class="text-white text-4xl md:text-5xl tracking-widest font-bold font-[hammersmith_one_,sans-serif] mb-6"
               text="WELCOME TO GALACTICORE"
             />
             <h1
-              class="text-4xl font-bold font-[Sen_,sans-serif] sm:!leading-normal tracking-normal text-gray-200 lg:text-6xl"
+              class="text-2xl md:text-4xl font-bold font-[Sen_,sans-serif] sm:!leading-normal tracking-normal text-gray-200 lg:text-6xl"
             >
-              Explore The Cosmos
+              - Explore The Cosmos -
             </h1>
             <div class="hidden sm:mb-2 sm:flex sm:justify-center">
               <div
@@ -234,57 +271,12 @@ const initiateEasterEgg = () => {
                 >
               </div>
             </div>
-            <p class="mt-6 text-xl leading-8 text-gray-400">
+            <p class="mt-6 text-sm md:text-xl leading-8 text-gray-400">
               Explore the captivating universe of Galacticore, an enigmatic NFT
               project on Shardeum. Dive into a thrilling gaming cosmos where you
               can journey through cosmic depths, unlock mysteries, and unleash
               your potential with blockchain.
             </p>
-            <div class="flex justify-center gap-x-6">
-              <svg
-                class="h-8 w-8 text-teal-500"
-                version="1.1"
-                id="Layer_1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                viewBox="0 0 511.588 511.588"
-                xml:space="preserve"
-              >
-                <g>
-                  <g>
-                    <path
-                      fill="currentColor"
-                      d="M508.508,93.804c-2.794-2.708-6.795-3.601-10.44-2.334l-17.252,5.953c10.162-12.297,17.66-25.14,21.608-37.315
-			c1.146-3.549,0.104-7.48-2.647-10.006c-2.768-2.543-6.786-3.263-10.275-1.805c-24.194,10.145-45.603,18.979-62.629,24.264
-			c-0.633,0.2-1.284,0.113-1.935-0.252c-13.572-7.602-47.547-25.062-71.68-24.784c-61.032,1.119-110.696,53.274-110.696,116.267
-			v3.445c-89.869-17.399-139.533-43.251-193.31-99.666l-8.4-8.817l-5.589,10.821C6.071,126.043,26.768,176.653,60.881,210.74
-			c-15.117-2.317-26.095-7.185-35.337-15.247c-3.549-3.072-8.583-3.454-12.54-0.937c-3.896,2.482-5.675,7.125-4.417,11.55
-			c11.481,40.622,42.227,73.98,74.683,93.913c-15.681-0.017-28.585-1.762-41.559-10.101c-3.775-2.43-8.687-2.178-12.21,0.607
-			c-3.497,2.777-4.842,7.463-3.35,11.672c15.82,44.431,45.403,67.801,94.425,73.624c-25.201,14.735-57.899,26.381-108.952,27.448
-			c-4.981,0.104-9.39,3.341-10.986,8.044C-0.958,416,0.5,421.033,4.344,424.122c31.024,25.01,100.612,39.945,186.151,39.945
-			c153.123,0,277.695-136.253,277.695-303.729v-2.942c19.812-9.468,34.929-28.151,42.921-53.274
-			C512.274,100.46,511.276,96.503,508.508,93.804z"
-                    />
-                  </g>
-                </g>
-              </svg>
-              <svg
-                class="h-8 w-8 text-sky-500"
-                viewBox="0 -28.5 256 256"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                preserveAspectRatio="xMidYMid"
-              >
-                <g>
-                  <path
-                    fill="currentColor"
-                    d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z"
-                    fill-rule="nonzero"
-                  ></path>
-                </g>
-              </svg>
-            </div>
           </div>
         </div>
         <div
@@ -417,7 +409,7 @@ const initiateEasterEgg = () => {
                   Wen mint 🤔
                 </h2>
                 <p class="mt-6">
-                  Galacticore is set to be released in Q1 2023 on the Shardeum
+                  Galacticore is set to be released in Q2 2023 on the Shardeum
                   Blockchain, and we cannot wait for our community to experience
                   the game that we have worked so hard on. We are confident that
                   Galacticore will be a game-changer in the blockchain gaming
@@ -681,7 +673,7 @@ const initiateEasterEgg = () => {
           >
             FAQ
           </h2>
-          <GlobalFaq :items="faqs" />
+          <Faq :items="faqs" />
         </div>
       </div>
       <footer class="bg-[#222222] rounded-lg shadow">
