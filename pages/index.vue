@@ -524,7 +524,7 @@ const openWelcomeSection = () => {
           >
             <SwiperSlide v-for="card in cards" :key="card.id">
               <div
-                class="p-4 h-full bg-[#212121] rounded-lg text-black border border-teal-700 hover:p-0 transition-all ease-in-out duration-500"
+                class="p-4 h-full bg-[#212121] rounded-lg text-black border cursor-pointer border-teal-700 hover:p-0 transition-all ease-in-out duration-500"
               >
                 <div
                   class="w-full h-full relative border-2 border-teal-300 rounded flex flex-col"
@@ -563,7 +563,7 @@ const openWelcomeSection = () => {
             Roadmap
           </h1>
           <div
-            class="flex flex-col [&>div]:h-[200px] lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 grid-rows-2 gap-4 mt-10"
+            class="flex flex-col [&>div]:h-[200px] [&>div]:lg:h-auto lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 grid-rows-2 gap-4 mt-10"
           >
             <div
               class="bg-sky-500 h-full rounded-lg relative overflow-hidden lg:col-span-2 shadow-lg"
