@@ -111,29 +111,103 @@ const team = [
 ];
 
 const cards = reactive([
-  { id: 1, title: "Card 1" },
-  { id: 2, title: "Card 2" },
-  { id: 3, title: "Card 3" },
-  { id: 4, title: "Card 4" },
-  { id: 5, title: "Card 5" },
+  {
+    id: 1,
+    title: "Satan",
+    rarity: "Legendary",
+    img: "img/nft-cards/1.png",
+    shadow: "red",
+  },
+  {
+    id: 2,
+    title: "Imposter",
+    rarity: "Epic",
+    img: "img/nft-cards/2.png",
+    shadow: "light-blue",
+  },
+  {
+    id: 3,
+    title: "Space fan",
+    rarity: "Rare",
+    img: "img/nft-cards/3.png",
+    shadow: "violet",
+  },
+  {
+    id: 4,
+    title: "Racer",
+    rarity: "Rare",
+    img: "img/nft-cards/4.png",
+    shadow: "red",
+  },
+  {
+    id: 5,
+    title: "Cosmos Wanderer",
+    rarity: "Legendary",
+    img: "img/nft-cards/5.png",
+    shadow: "green",
+  },
+  {
+    id: 6,
+    title: "Unknown",
+    rarity: "Common",
+    img: "img/nft-cards/6.png",
+    shadow: "green",
+  },
+  {
+    id: 7,
+    title: "Unknown",
+    rarity: "Uncommon",
+    img: "img/nft-cards/7.png",
+    shadow: "purple",
+  },
+  {
+    id: 8,
+    title: "High Tech Samurai",
+    rarity: "Epic",
+    img: "img/nft-cards/8.png",
+    shadow: "light-blue",
+  },
+  {
+    id: 9,
+    title: "Unknown",
+    rarity: "Common",
+    img: "img/nft-cards/9.png",
+    shadow: "gray",
+  },
 ]);
 
-const cardContainer = ref(null);
-let currentPosition = 0;
-const slideRight = () => {
-  currentPosition += 1;
-  if (currentPosition >= cards.length - 1) {
-    const addedCards = [...cards];
-    cards.push(...addedCards);
-  }
-  cardContainer.value.style.transform = `translateX(${
-    -currentPosition * 220
-  }px)`;
+const raritySettings = {
+  Legendary: "text-yellow-400",
+  Epic: "text-indigo-500",
+  Rare: "text-sky-500",
+  Common: "text-gray-300",
+  Uncommon: "text-green-500",
 };
 
-const addedCards = [...cards];
-cards.push(...addedCards);
+const cardShadows = {
+  red: "shadow-red-500",
+  gray: "shadow-zinc-500",
+  "light-blue": "shadow-sky-300",
+  violet: "shadow-indigo-500",
+  green: "shadow-green-500",
+  purple: "shadow-purple-500",
+  blue: "shadow-blue-500",
+};
 
+const swiperOptions = {
+  breakpoints: {
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 20,
+    },
+    1280: {
+      slidesPerView: 3,
+      spaceBetween: 20,
+    },
+  },
+};
+const isLargeScreen = ref(false);
+const isWelcomeOpen = ref(false);
 const open = ref(false);
 
 const characters = ["S", "M", "O", "L"];
@@ -148,13 +222,10 @@ const initiateEasterEgg = () => {
   console.log("easter egg 1");
 };
 
-const isLargeScreen = ref();
-
 onMounted(() => {
   isLargeScreen.value = window.innerWidth >= 768;
+  if (!isLargeScreen.value) isWelcomeOpen.value = true;
 });
-
-const isWelcomeOpen = ref(false);
 
 const openWelcomeSection = () => {
   isWelcomeOpen.value = true;
@@ -424,45 +495,75 @@ const openWelcomeSection = () => {
         </div>
       </div>
       <div class="py-24 sm:py-32 relative">
-        <div class="mx-auto grid max-w-7xl overflow-hidden">
-          <div class="flex flex-col items-center">
-            <div
-              ref="cardContainer"
-              class="relative flex w-full overflow-hidden transition-all ease-out snap-x"
-            >
+        <div class="mx-auto container relative px-4 lg:max-w-7xl lg:px-8">
+          <div
+            class="text-gray-300 absolute -top-10 right-0 font-bold flex gap-4"
+          >
+            Swipe 'em!<ChevronRightIcon class="h-5 animate-ping duration-500" />
+          </div>
+          <Swiper
+            :modules="[SwiperAutoplay, SwiperEffectCreative]"
+            :slides-per-view="1"
+            :loop="true"
+            :breakpoints="swiperOptions.breakpoints"
+            space-between="20"
+            class="h-[500px]"
+            :autoplay="{
+              delay: 5000,
+              disableOnInteraction: true,
+            }"
+            :creative-effect="{
+              prev: {
+                shadow: false,
+                translate: ['-20%', 0, -1],
+              },
+              next: {
+                translate: ['100%', 0, 0],
+              },
+            }"
+          >
+            <SwiperSlide v-for="card in cards" :key="card.id">
               <div
-                v-for="card in cards"
-                :key="card.id"
-                class="w-[350px] h-[500px] mr-10 bg-red-600 transition-all ease-in-out snap-center"
+                class="p-4 h-full bg-[#212121] rounded-lg text-black border border-teal-700 hover:p-0 transition-all ease-in-out duration-500"
               >
-                <div class="flex flex-col items-center justify-center h-full">
-                  <h2 class="text-lg text-white">{{ card.title }}</h2>
-                  <p class="text-sm text-white">{{ card.description }}</p>
+                <div
+                  class="w-full h-full relative border-2 border-teal-300 rounded flex flex-col"
+                >
+                  <div
+                    class="h-3/4 w-full relative shadow-2xl"
+                    :class="cardShadows[card.shadow]"
+                  >
+                    <img
+                      class="absolute left-0 top-0 w-full h-full object-cover"
+                      :src="card.img"
+                      alt="nft"
+                    />
+                  </div>
+                  <div class="h-1/4 flex flex-col justify-between p-4">
+                    <span
+                      class="text-white text-2xl tracking-widest uppercase"
+                      >{{ card.title }}</span
+                    >
+                    <span class="text-white text-lg"
+                      >Rarity:
+                      <span :class="raritySettings[card.rarity]">
+                        {{ card.rarity }}</span
+                      ></span
+                    >
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="flex justify-center items-center absolute top-0 right-0 h-full w-1/3"
-        >
-          <button
-            class="text-white rounded-full p-7 bg-[#26284079] backdrop-blur-sm hover:bg-[#535783a1] hover:scale-110 transition-all ease-in-out duration-500"
-            @click="slideRight"
-          >
-            <ChevronRightIcon
-              class="h-10 w-10 text-gray-300 group-hover:text-indigo-600"
-            />
-          </button>
+            </SwiperSlide>
+          </Swiper>
         </div>
       </div>
       <div class="py-24 sm:py-32">
-        <div id="roadmap" class="mx-auto container">
-          <h1 class="sm:text-6xl text-center text-3xl text-gray-100 my-6">
+        <div id="roadmap" class="mx-auto container px-4">
+          <h1 class="sm:text-6xl text-center text-4xl text-gray-100 lg:my-6">
             Roadmap
           </h1>
           <div
-            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 grid-rows-2 gap-4 mt-10"
+            class="flex flex-col [&>div]:h-[200px] lg:grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 grid-rows-2 gap-4 mt-10"
           >
             <div
               class="bg-sky-500 h-full rounded-lg relative overflow-hidden lg:col-span-2 shadow-lg"
@@ -472,7 +573,7 @@ const openWelcomeSection = () => {
               "
             >
               <span
-                class="absolute top-12 left-8 uppercase text-6xl rotate-[340deg] font-['Concert_One',cursive] drop-shadow-[0_20px_25px_rgb(0_0_0_/_1)]"
+                class="absolute top-8 left-0 text-5xl lg:top-12 lg:left-8 uppercase lg:text-6xl rotate-[340deg] font-['Concert_One',cursive] drop-shadow-[0_20px_25px_rgb(0_0_0_/_1)]"
                 >Found It!</span
               >
               <span
@@ -482,7 +583,7 @@ const openWelcomeSection = () => {
               <img
                 src="/img/roadmap/idea.png"
                 alt="doodle coin"
-                class="absolute bottom-0 left-10 object-cover w-[350px] h-auto"
+                class="absolute bottom-0 left-10 w-full h-full object-contain lg:object-cover lg:w-[350px] h-auto"
               />
             </div>
             <div
@@ -497,7 +598,7 @@ const openWelcomeSection = () => {
               >
                 <p class="text">
                   <span
-                    class="letter"
+                    class="text-8xl lg:letter"
                     v-for="(char, index) in characters"
                     :key="index"
                     :style="{ transform: `rotate(${index * rotation()}deg)` }"
@@ -506,8 +607,8 @@ const openWelcomeSection = () => {
                 </p>
               </span>
               <span
-                class="absolute top-5 left-5 uppercase text-6xl tracking-widest font-['Concert_One',cursive]"
-                >SOLD <span class="ml-32">OUT!</span></span
+                class="absolute top-5 left-5 uppercase text-white lg:text-black text-6xl tracking-widest font-['Concert_One',cursive]"
+                >SOLD <span class="ml-44 lg:ml-32">OUT!</span></span
               >
               <span
                 class="absolute bottom-2 right-3 uppercase text-2xl font-['Concert_One',cursive] drop-shadow-[0_20px_25px_rgb(0_0_0_/_1)]"
@@ -516,7 +617,7 @@ const openWelcomeSection = () => {
               <img
                 src="/img/roadmap/smol.png"
                 alt="doodle coin"
-                class="absolute -bottom-2 left-1/2 -translate-x-1/2 max-h-[450px]"
+                class="absolute -bottom-6 lg:-bottom-2 left-1/2 -translate-x-1/2 w-full h-full object-contain max-h-[450px]"
               />
             </div>
             <div
@@ -527,28 +628,28 @@ const openWelcomeSection = () => {
               "
             >
               <span
-                class="absolute top-12 left-1/2 -translate-x-1/2 font-['Concert_One',cursive] uppercase text-7xl whitespace-nowrap"
+                class="absolute top-0 left-5 z-20 lg:top-12 lg:left-1/2 lg:-translate-x-1/2 font-['Concert_One',cursive] uppercase text-7xl whitespace-nowrap"
                 >Liftoff!</span
               >
               <span
-                class="absolute bottom-2 right-3 uppercase text-2xl font-['Concert_One',cursive] drop-shadow-[0_20px_25px_rgb(0_0_0_/_1)]"
+                class="absolute bottom-2 right-3 z-20 uppercase text-2xl font-['Concert_One',cursive] drop-shadow-[0_20px_25px_rgb(0_0_0_/_1)]"
                 >Q3-Q4 2023</span
               >
               <img
                 src="/img/roadmap/doodle_launch.png"
                 alt="doodle coin"
-                class="absolute bottom-0 left-5 object-cover w-auto drop-shadow-[0_20px_25px_rgb(0_0_0_/_1)] h-[300px]"
+                class="absolute -bottom-6 lg:bottom-0 left-0 lg:left-5 w-full h-full object-contain lg:object-cover lg:w-auto drop-shadow-[0_20px_25px_rgb(0_0_0_/_1)] lg:h-[300px]"
               />
             </div>
             <div
-              class="bg-emerald-500 h-full rounded-lg relative overflow-hidden min-h-[450px] md:col-span-3 lg:col-span-3 shadow-lg"
+              class="bg-emerald-500 h-full rounded-lg relative overflow-hidden lg:min-h-[450px] md:col-span-3 lg:col-span-3 shadow-lg"
               style="
                 box-shadow: inset 0 0 20px rgba(5, 150, 105, 0.5),
                   0 0 10px rgba(5, 150, 105, 0.5);
               "
             >
               <img
-                class="absolute bottom-0 left-10 max-w-[550px]"
+                class="absolute -bottom-5 lg:bottom-0 left-10 w-[85%] h-auto object-contain lg:w-auto max-w-[550px]"
                 src="/img/roadmap/doodle_coin.png"
                 alt="doodle coin"
               />
@@ -557,7 +658,7 @@ const openWelcomeSection = () => {
                 >Q4 2023</span
               >
               <span
-                class="absolute top-16 left-1/2 -translate-x-1/2 font-['Concert_One',cursive] uppercase text-5xl whitespace-nowrap"
+                class="absolute top-0 lg:top-16 left-1/2 -translate-x-1/2 font-['Concert_One',cursive] uppercase text-5xl whitespace-nowrap"
                 >Galacticore 101</span
               >
             </div>
@@ -577,12 +678,12 @@ const openWelcomeSection = () => {
                 class="absolute bottom-2 right-3 uppercase text-2xl font-['Concert_One',cursive] drop-shadow-[0_20px_25px_rgb(0_0_0_/_1)]"
                 >Q1 2024</span
               >
-              <span
-                @click="initiateEasterEgg()"
-                class="absolute top-44 right-[12.25rem] font-['Press_Start_2P',cursive] text-black text-[8px] text-center font-bold rotate-[5deg] whitespace-nowrap"
-                >Press any <br />
-                button..</span
-              >
+              <!--              <span-->
+              <!--                  @click="initiateEasterEgg()"-->
+              <!--                  class="absolute top-44 right-[12.25rem] font-['Press_Start_2P',cursive] text-black text-[8px] text-center font-bold rotate-[5deg] whitespace-nowrap"-->
+              <!--              >Press any <br/>-->
+              <!--                button..</span-->
+              <!--              >-->
             </div>
           </div>
         </div>
@@ -631,7 +732,7 @@ const openWelcomeSection = () => {
             </p>
           </div>
           <div
-            class="grid gap-x-8 gap-y-12 grid-cols-2 sm:gap-y-16 xl:col-span-2 lg:pb-20"
+            class="grid gap-x-8 gap-y-12 grid-cols-1 lg:grid-cols-2 sm:gap-y-16 xl:col-span-2 lg:pb-20"
           >
             <TeamCard v-for="person in team" :item="person"></TeamCard>
           </div>
@@ -669,7 +770,7 @@ const openWelcomeSection = () => {
         <div class="mx-auto grid max-w-5xl px-6 lg:px-8">
           <h2
             style="font-family: 'Josefin Sans', sans-serif"
-            class="lg:text-8xl font-light tracking-wider text-gray-50 mx-auto mb-16"
+            class="lg:text-8xl text-6xl font-light tracking-wider text-gray-50 mx-auto mb-16"
           >
             FAQ
           </h2>
@@ -681,7 +782,10 @@ const openWelcomeSection = () => {
           <div class="sm:flex sm:items-center sm:justify-between">
             <a href="#"
               ><span class="sr-only">Galacticore NFT</span
-              ><img class="h-20 w-auto" src="/img/galacticore-logo.png" alt=""
+              ><img
+                class="h-20 w-auto mb-6"
+                src="/img/galacticore-logo.png"
+                alt=""
             /></a>
             <ul
               class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
