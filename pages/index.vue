@@ -39,7 +39,7 @@ const navigation = reactive([
         name: "White Paper",
         description:
           "Learn about the technical details, use cases, and potential benefits of a specific NFT project or platform.",
-        href: "/docs",
+        href: "https://docs.galacticore-nft.com/",
         icon: DocumentTextIcon,
       },
     ],
@@ -443,11 +443,18 @@ const openWelcomeSection = () => {
           <div
             class="-ml-12 -mt-12 p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden"
           >
-            <img
-              class="w-[48rem] max-w-none rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem]"
-              src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png"
-              alt=""
-            />
+            <div class="relative">
+              <img
+                class="w-[48rem] max-w-none rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem]"
+                src="/img/about-us/background.png"
+                alt="background"
+              />
+              <img
+                class="absolute left-1/2 -translate-x-1/2 top-28 w-72"
+                src="/img/about-us/walking-doodle.gif"
+                alt="walking-doodle"
+              />
+            </div>
           </div>
           <div
             class="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8"
@@ -499,7 +506,8 @@ const openWelcomeSection = () => {
           <div
             class="text-gray-300 absolute -top-10 right-0 font-bold flex gap-4"
           >
-            Swipe 'em!<ChevronRightIcon class="h-5 animate-ping duration-500" />
+            Swipe 'em!
+            <ChevronRightIcon class="h-5 animate-ping duration-500" />
           </div>
           <Swiper
             :modules="[SwiperAutoplay, SwiperEffectCreative]"
